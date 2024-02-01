@@ -4,7 +4,7 @@
 this program is a software which is used for programing chip board.
 
 #### software architech
-it using Swing plus Mina framework as  development tool,at last,exe4j is needed to packge jars
+using Swing plus Mina framework as  development tool,and,exe4j is needed to packge jars
 
 #### install guide
 
