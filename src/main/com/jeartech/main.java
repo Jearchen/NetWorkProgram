@@ -20,8 +20,7 @@ public class main {
     private static int fileSize;
     private static String fileName;
 
-    public static void main(String[] args)  {
-        try{
+    private  void createUI() throws Exception{
             JCFrame jcFrame = new JCFrame(480,360,"");
             JFrame rawFrame = jcFrame.getRawFrame();
             rawFrame.setTitle("网口升级网关程序");
@@ -110,9 +109,17 @@ public class main {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             jcFrame.setVisible(true);
             server.createInstance(10099);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    }
+
+    public static void main(String[] args)  {
+        SwingUtilities.invokeLater(()->{
+            try{
+                main app = new main();
+                app.createUI();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     public static List<byte[]> getSplitArrs() {
