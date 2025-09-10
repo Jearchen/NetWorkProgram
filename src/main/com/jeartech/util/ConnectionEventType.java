@@ -7,8 +7,8 @@ public enum ConnectionEventType {
     connection247("10.157.195.247","1"),
     connection248("10.157.195.248","2"),
     connection249("10.157.195.249","3"),
-    connection250("10.157.195.250","4")
-    ;
+    connection250("10.157.195.250","4");
+    
     private String name;
     private String code;
 

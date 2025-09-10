@@ -1,41 +1,44 @@
 package com.jeartech.Component;
 
+import com.jeartech.Listener.JCMultiListener;
 import com.jeartech.Listener.JcTreeListenConnect;
-import com.jeartech.Listener.JcTreePopUpMenuListener;
 import com.jeartech.util.ServerUtil;
 
-import javax.swing.*;
+import java.awt.Container;
+
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
-import java.io.Serializable;
 
-public class JcTree implements Serializable {
-    private JTree jTree = new JTree();
-    private JcTreePopUpMenuListener popupListener = new JcTreePopUpMenuListener();
-    public JcTree(int width, int height, String title, Container parent){
-        jTree.setEditable(true);
-        jTree.setVisible(true);
-        jTree.setSize(width,height);
-        jTree.addPropertyChangeListener(new JcTreeListenConnect(this));
-        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode();
-        newNode.setUserObject("session connect");
-        jTree= new JTree(newNode);
-        jTree.addMouseListener(popupListener);
-        parent.add(jTree);
-    }
 
-    public void setPopupMenu(JPopupMenu menu){
-        popupListener.setPopupMenu(menu);
+public class JCTree extends JTree {
+    // private JcTreePopUpMenuListener popupListener = new JcTreePopUpMenuListener();
+    
+    public JCTree(int width, int height){
+        setEditable(true);
+        setVisible(true);
+        setSize(width,height);
+        // addPropertyChangeListener(new JcTreeListenConnect(this));
+        // DefaultMutableTreeNode newNode = new DefaultMutableTreeNode();
+        // newNode.setUserObject("session connect");
+        
+        // jTree= new JTree(newNode);
+        // // jTree.addMouseListener(popupListener);
+        // parent.add(jTree);
+        // addPropertyChangeListener(new JCMultiListener());
     }
 
-    public JTree getRawTree(){
-        return jTree;
-    }
+    // public void setPopupMenu(JPopupMenu menu){
+    //     popupListener.setPopupMenu(menu);
+    // }
 
-    public void registerConnection(ServerUtil server){
-        server.addPropertyChangeListener(new JcTreeListenConnect(this));
-    }
-    public void removeConnection(ServerUtil server){
-        server.removePropertyChangerListener(new JcTreeListenConnect(this));
-    }
+    // public JTree getRawTree(){
+    //     return jTree;
+    // }
+
+    // public void registerConnection(ServerUtil server){
+    //     server.addPropertyChangeListener(new JcTreeListenConnect(this));
+    // }
+    // public void removeConnection(ServerUtil server){
+    //     server.removePropertyChangerListener(new JcTreeListenConnect(this));
+    // }
 }

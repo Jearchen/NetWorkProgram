@@ -13,7 +13,7 @@ public class FileUtil {
 
     private static byte[] rawByte = new byte[20000];
 
-    private static List<byte[]> splitBytes ;
+    private static ArrayList<byte[]> splitBytes ;
 
     public FileUtil(){
     }
@@ -28,7 +28,7 @@ public class FileUtil {
         return rawByte;
     }
 
-    public static List<byte[]> getSplitBytes(int splitSize) throws Exception {
+    public static ArrayList<byte[]> getSplitBytes(int splitSize) throws Exception {
         inputStream = new FileInputStream(source);
         rawByte = new byte[inputStream.available()];
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);

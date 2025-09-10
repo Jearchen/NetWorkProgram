@@ -1,8 +1,7 @@
 package com.jeartech.Component;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
 
-public class JcTextArea {
-    private JTextArea jTextArea;
+public class JCTextArea extends JTextArea{
 
 }

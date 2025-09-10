@@ -64,7 +64,7 @@ public class ServerUtil {
             rawIP = rawIP.split("/")[1];
             rawIP = rawIP.split(":")[0];
             sessionMap.put(rawIP,session);
-            System.out.println("进入连接");
+            logger.info("进入连接");
             propertyChangeSupport.firePropertyChange("connectChange","1",ConnectionEventType.newConnection.getCode());
             propertyChangeSupport.firePropertyChange("logServer"+"-"+rawIP,"2",ConnectionEventType.newConnection.getCode());
         }
@@ -97,7 +97,6 @@ public class ServerUtil {
             int newBytesLen = buffer.limit();
             byte[] newBytes = new byte[newBytesLen];
             buffer.get(newBytes, buffer.position(), newBytesLen);
-//            System.out.println("接受报文"+byte2Hex(newBytes));
             propertyChangeSupport.firePropertyChange("receiveBuffer"+"-"+rawIP,null,byte2Hex(newBytes));
             if(isEndPacket(newBytes))
                 endFlag =true;
@@ -118,15 +117,13 @@ public class ServerUtil {
 
 
 
-        private boolean isEffectConnect(IoSession A){
-            boolean result =false;
-            String aIp = A.getRemoteAddress().toString();
-            aIp = aIp.split("/")[1];
-            aIp = aIp.split(":")[0];
-
-
-            return result;
-        }
+        // private boolean isEffectConnect(IoSession A){
+        //     boolean result =false;
+        //     String aIp = A.getRemoteAddress().toString();
+        //     aIp = aIp.split("/")[1];
+        //     aIp = aIp.split(":")[0];
+        //     return result;
+        // }
 
         private boolean isEffectPacket(byte[] response){
             boolean result = false;

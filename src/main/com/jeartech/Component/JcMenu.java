@@ -1,7 +1,6 @@
 package com.jeartech.Component;
 
-import javax.swing.*;
+import javax.swing.JMenu;
 
-public class JcMenu {
-    private static JMenu jMenu;
+public class JCMenu extends JMenu{
 }
