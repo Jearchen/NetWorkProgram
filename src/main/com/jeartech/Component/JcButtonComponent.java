@@ -1,5 +1,6 @@
 package com.jeartech.Component;
 
+import com.jeartech.Listener.JCMultiListener;
 import com.jeartech.Listener.TextAreaListenTaskMessage;
 import com.jeartech.App;
 import com.jeartech.util.ConnectionEventType;
@@ -9,7 +10,10 @@ import org.apache.mina.core.session.IoSession;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.metal.MetalBorders;
+
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,39 +23,28 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JCButtonComponent extends JButton {
-    private static ConcurrentHashMap<String,Object> threadLocals =new ConcurrentHashMap<>();
-    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
     private static String filePath;
-    private float processor;
-
-    private static  List<byte[]> splitBytes;
-
-    private static int fileSize;
-    private static String fileName;
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
     public JCButtonComponent(int width, int height, String text){
         setBorder(MetalBorders.getButtonBorder());
         setSize(width,height);
         setText(text);
         setVisible(true);
         setLocation(10,10);
-        
     }
 
-    //按钮显示对话框
     public  void showFileDialog(JCFileDialog fileDialog){
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-            if(e.getButton()==1){
-                showFileDialog(true);
-                filePath = getFilePath();
-                System.out.println(filePath);
-                if(filePath!=null)
-                {
-                    fileDialog.propertyChangeSupport(filePath);
+                if(e.getButton()==1){
+                    fileDialog.setVisible(true);
+                    filePath = fileDialog.getFilePath();
+                    if(filePath!=null)
+                    {
+                        firePropertyChange("filePathChange", "1", filePath);
+                    }
                 }
-            }
             }
         });
     }
@@ -64,12 +57,12 @@ public class JCButtonComponent extends JButton {
                 if(e.getButton()==1){
                     List<byte[]> splitBytes = App.getSplitArrs();
                     if(splitBytes==null||splitBytes.size()==0){
-                        propertyChangeSupport.firePropertyChange("taskMessage",null,"请先选择需要升级的文件");
+                        firePropertyChange("taskMessage",null,"请先选择需要升级的文件");
                         return;
                     }
                     Map<String, IoSession> sessionMap = ServerUtil.getSessionMap();
                     if(sessionMap.size()==0){
-                        propertyChangeSupport.firePropertyChange("taskMessage",null,"暂无网关连接，请检查网络");
+                        firePropertyChange("taskMessage",null,"暂无网关连接，请检查网络");
                         return;
                     }
                     for (String sessionItem : sessionMap.keySet()) {

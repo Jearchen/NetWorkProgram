@@ -1,44 +1,32 @@
 package com.jeartech.Component;
 
-import com.jeartech.Listener.JCMultiListener;
-import com.jeartech.Listener.JcTreeListenConnect;
-import com.jeartech.util.ServerUtil;
-
-import java.awt.Container;
+import java.awt.Font;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 
 
 public class JCTree extends JTree {
-    // private JcTreePopUpMenuListener popupListener = new JcTreePopUpMenuListener();
-    
-    public JCTree(int width, int height){
-        setEditable(true);
-        setVisible(true);
-        setSize(width,height);
-        // addPropertyChangeListener(new JcTreeListenConnect(this));
-        // DefaultMutableTreeNode newNode = new DefaultMutableTreeNode();
-        // newNode.setUserObject("session connect");
-        
-        // jTree= new JTree(newNode);
-        // // jTree.addMouseListener(popupListener);
-        // parent.add(jTree);
-        // addPropertyChangeListener(new JCMultiListener());
+    private DefaultTreeModel treeModel;
+    public JCTree(){
+        setFont(new Font("JetBrainsMono",Font.BOLD,16));
     }
 
-    // public void setPopupMenu(JPopupMenu menu){
-    //     popupListener.setPopupMenu(menu);
-    // }
+    public void addSocketNode(DefaultMutableTreeNode treeNode){
+        MutableTreeNode parent = (MutableTreeNode)treeNode.getParent();
+        if(parent==null){
+            treeModel = new DefaultTreeModel(treeNode);
+        }else{
+            treeModel.insertNodeInto(treeNode,parent,parent.getChildCount());
+        }
+        setModel(treeModel);
+        updateUI();
+    }
 
-    // public JTree getRawTree(){
-    //     return jTree;
-    // }
-
-    // public void registerConnection(ServerUtil server){
-    //     server.addPropertyChangeListener(new JcTreeListenConnect(this));
-    // }
-    // public void removeConnection(ServerUtil server){
-    //     server.removePropertyChangerListener(new JcTreeListenConnect(this));
-    // }
+    public void removeSocketNode(DefaultMutableTreeNode treeNode){
+        treeModel.removeNodeFromParent(treeNode);
+        updateUI();
+    }   
 }

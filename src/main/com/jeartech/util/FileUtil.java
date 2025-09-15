@@ -2,7 +2,6 @@ package com.jeartech.util;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FileUtil {
     private static FileInputStream inputStream;
